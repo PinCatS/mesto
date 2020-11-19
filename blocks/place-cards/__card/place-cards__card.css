@@ -1,0 +1,10 @@
+.place-cards__card {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  max-height: 362px;
+  background-color: #fff;
+  border-radius: 10px;
+  align-self: stretch;
+  justify-self: stretch;
+}
