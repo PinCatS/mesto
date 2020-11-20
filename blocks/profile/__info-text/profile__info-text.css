@@ -2,3 +2,9 @@
   position: relative;
   text-align: center;
 }
+
+@media screen and (min-width: 1024px) {
+  .profile__info-text {
+    text-align: left;
+  }
+}
