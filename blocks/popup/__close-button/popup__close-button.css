@@ -1,0 +1,28 @@
+.popup__close-button {
+  box-sizing: border-box;
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background-color: unset;
+  top: calc(-26px - 13.62px);
+  right: 0;
+  width: 26px;
+  height: 26px;
+  transform: rotate(45deg);
+  background: no-repeat url('../../../images/button-cross.svg') center / 26px 26px;
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+
+.popup__close-button:hover {
+  opacity: .6;
+}
+
+@media screen and (min-width: 1024px) {
+  .popup__close-button {
+    top: -40px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+  }
+}

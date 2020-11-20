@@ -7,35 +7,8 @@
   border-radius: 10px;
 }
 
-.popup__container::before {
-  box-sizing: border-box;
-  content: '';
-  display: block;
-  position: absolute;
-  top: calc(-26px - 13.62px);
-  right: 0;
-  width: 26px;
-  height: 26px;
-  transform: rotate(45deg);
-  background: no-repeat url('../../../images/button-cross.svg') center / 26px 26px;
-  opacity: 1;
-  transition: opacity .2s ease;
-}
-
-.popup__container:hover::before {
-  opacity: .6;
-}
-
 @media screen and (min-width: 1024px) {
-  .popup__container::before {
-    top: -40px;
-    right: -40px;
-    width: 40px;
-    height: 40px;
-  }
-
   .popup__container {
-    position: relative;
     margin: 195px 0 0;
     max-width: 430px;
     min-height: 330px;
