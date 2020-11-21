@@ -10,6 +10,18 @@
   font-size: 14px;
   line-height: calc(17 / 14);
   text-align: center;
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+
+.popup__button:hover {
+  opacity: .8;
+  cursor: pointer;
+}
+
+.popup__button:active {
+  outline: unset;
+  opacity: .9;
 }
 
 @media screen and (min-width: 1024px) {

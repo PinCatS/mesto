@@ -19,6 +19,11 @@
   opacity: .6;
 }
 
+.profile__edit-button:hover {
+  outline: unset;
+  opacity: .4;
+}
+
 @media screen and (min-width: 768px) {
   .profile__edit-button {
     top: 21px;
