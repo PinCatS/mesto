@@ -3,9 +3,10 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  max-height: 362px;
+  max-height: 361px;
   background-color: #fff;
   border-radius: 10px;
   align-self: stretch;
   justify-self: stretch;
+  font-size: 0;
 }

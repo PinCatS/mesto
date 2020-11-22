@@ -3,6 +3,7 @@
   min-height: 56px;
 }
 
+/* bottom header line */
 .header::after {
   content: '';
   display: block;
