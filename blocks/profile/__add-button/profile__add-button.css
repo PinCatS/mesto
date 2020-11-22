@@ -21,6 +21,11 @@
   opacity: .4;
 }
 
+.profile__add-button:focus,
+.profile__add-button:visited {
+  outline: unset;
+}
+
 @media screen and (min-width: 1024px) {
   .profile__add-button {
     width: 150px;

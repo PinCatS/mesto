@@ -1,0 +1,25 @@
+.place-cards__like-button {
+  margin: 0 24px 0 24px;
+  min-width: 20.76px;
+  min-height: 18.13px;
+  padding: 0;
+  border: 0;
+  background-color: unset;
+  background: no-repeat url('../../../images/like-icon.svg') center / contain;
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+
+.place-cards__like-button:hover {
+  opacity: .6;
+}
+
+.place-cards__like-button:active {
+  outline: unset;
+  opacity: .8;
+}
+
+.place-cards__like-button:focus,
+.place-cards__like-button:visited {
+  outline: unset;
+}

@@ -20,7 +20,7 @@
 @import url('../blocks/place-cards/__image/place-cards__image.css');
 @import url('../blocks/place-cards/__info/place-cards__info.css');
 @import url('../blocks/place-cards/__title/place-cards__title.css');
-@import url('../blocks/place-cards/__like-icon/place-cards__like-icon.css');
+@import url('../blocks/place-cards/__like-button/place-cards__like-button.css');
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');
 @import url('../blocks/popup/popup.css');
