@@ -1,22 +1,10 @@
 .form-input {
   box-sizing: border-box;
-  margin-bottom: 30px;
   padding: 0 0 10px 0;
-  width: 100%;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
   color: #000;
-}
-
-.form-input:last-of-type {
-  margin-bottom: 45px;
-}
-
-@media screen and (min-width: 1024px) {
-  .form-input:last-of-type {
-    margin-bottom: 48px;
-  }
 }

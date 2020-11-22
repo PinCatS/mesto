@@ -6,7 +6,7 @@ function openPopup(evt) {
 
     const profileNameNode = this.querySelector('.profile__name');
     const profileActivityNode = this.querySelector('.profile__activity');
-    const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.form-input');
+    const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.popup__input');
 
     profileNameInput.value = profileNameNode.textContent;
     profileActivityInput.value = profileActivityNode.textContent;
@@ -14,7 +14,7 @@ function openPopup(evt) {
 }
 
 function savePopupInput(evt) {
-  const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.form-input');
+  const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.popup__input');
   const profileNameNode = profileInfoTextNode.querySelector('.profile__name');
   const profileActivityNode = profileInfoTextNode.querySelector('.profile__activity');
 
