@@ -1,17 +1,25 @@
-# Проект 4: Место
+# Project 4: Mest
 
-### Обзор
+## Project description
 
-* Figma
-* Картинки
+The fourth project of Web developer program at Yandex.Praktikum and the first project where we started using Java Script to process user input
 
-**Figma**
+## Technologies I used
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+* Semantic versioning using HTML 5 (ex., section, article, main tags)
+* Flex and Grid
+* Transitions
+* Media queries
+* BEM methodology
+* Java Script
 
-**Картинки**
+* Figma and Git
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
+## How to view the web page
 
-Удачи!
+1. You can open it by going to the project's github.io page [Mesto](https://pincats.github.io/mesto/)
+2. You can download or clone the project and open index.html in any browser locally
+
+## TODOs
+
+* Extract common code into mixins
