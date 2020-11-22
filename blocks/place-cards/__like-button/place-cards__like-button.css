@@ -12,6 +12,7 @@
 
 .place-cards__like-button:hover {
   opacity: .6;
+  cursor: pointer;
 }
 
 .place-cards__like-button:active {
