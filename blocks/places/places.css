@@ -1,9 +1,9 @@
-.elements {
+.places {
   padding-top: 36px;
 }
 
 @media screen and (min-width: 1024px) {
-  .elements {
+  .places {
     padding-top: 50px;
   }
 }
