@@ -7,23 +7,14 @@
   background: no-repeat url('../../../images/button-cross.svg') center / 16px 16px;
   border: 2px solid #fff;
   border-radius: 2px;
-  opacity: 1;
-  transition: opacity .2s ease;
 }
 
 .profile__add-button:hover {
   opacity: .6;
-  cursor: pointer;
 }
 
 .profile__add-button:active {
-  outline: unset;
   opacity: .4;
-}
-
-.profile__add-button:focus,
-.profile__add-button:visited {
-  outline: unset;
 }
 
 @media screen and (min-width: 1024px) {

@@ -1,36 +1,25 @@
-.popup__button {
+.popup__save-button {
   margin-bottom: 25px;
   width: 100%;
   min-height: 46px;
   background-color: #000;
   color: #fff;
-  border: 0;
   border-radius: 2px;
   font-weight: normal;
   font-size: 14px;
   line-height: calc(17 / 14);
-  text-align: center;
-  opacity: 1;
-  transition: opacity .2s ease;
 }
 
-.popup__button:hover {
+.popup__save-button:hover {
   opacity: .8;
-  cursor: pointer;
 }
 
-.popup__button:active {
-  outline: unset;
+.popup__save-button:active {
   opacity: .9;
 }
 
-.popup__button:focus,
-.popup__button:visited {
-  outline: unset;
-}
-
 @media screen and (min-width: 1024px) {
-  .popup__button {
+  .popup__save-button {
     margin-bottom: 37px;
   }
 }

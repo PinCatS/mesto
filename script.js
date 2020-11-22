@@ -1,3 +1,5 @@
+/* Handlers definition and helper functions */
+
 function openPopup(evt) {
   if (evt.target === profileInfoEditButton) {
     popupNode.classList.add('popup_opened');
@@ -27,8 +29,10 @@ function closePopup(evt) {
   evt.preventDefault();
 }
 
+/* Main logic */
+
 const popupNode = document.querySelector('.popup');
-const popupSaveButton = popupNode.querySelector('.popup__button');
+const popupSaveButton = popupNode.querySelector('.popup__save-button');
 const popupCloseButton = popupNode.querySelector('.popup__close-button');
 
 const profileInfoTextNode = document.querySelector('.profile__info-text');
