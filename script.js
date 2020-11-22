@@ -1,18 +1,25 @@
+/* Handlers definition and helper functions */
+
 function openPopup(evt) {
+  const profileInfoEditButton = profileInfoTextNode.querySelector('.profile__edit-button');
+
   if (evt.target === profileInfoEditButton) {
     popupNode.classList.add('popup_opened');
-
-    const profileNameNode = this.querySelector('.profile__name');
-    const profileActivityNode = this.querySelector('.profile__activity');
-    const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.form-input');
-
-    profileNameInput.value = profileNameNode.textContent;
-    profileActivityInput.value = profileActivityNode.textContent;
+    populateInputWithCurrentValues(this);
   }
 }
 
+function populateInputWithCurrentValues(profileInfoTextNode) {
+  const profileNameNode = profileInfoTextNode.querySelector('.profile__name');
+  const profileActivityNode = profileInfoTextNode.querySelector('.profile__activity');
+  const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.popup__input');
+
+  profileNameInput.value = profileNameNode.textContent;
+  profileActivityInput.value = profileActivityNode.textContent;
+}
+
 function savePopupInput(evt) {
-  const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.form-input');
+  const [profileNameInput, profileActivityInput] = popupNode.querySelectorAll('.popup__input');
   const profileNameNode = profileInfoTextNode.querySelector('.profile__name');
   const profileActivityNode = profileInfoTextNode.querySelector('.profile__activity');
 
@@ -27,13 +34,16 @@ function closePopup(evt) {
   evt.preventDefault();
 }
 
+/* Main logic */
+
 const popupNode = document.querySelector('.popup');
-const popupSaveButton = popupNode.querySelector('.popup__button');
+const popupForm = popupNode.querySelector('.popup__container');
 const popupCloseButton = popupNode.querySelector('.popup__close-button');
 
-const profileInfoTextNode = document.querySelector('.profile__info-text');
-const profileInfoEditButton = profileInfoTextNode.querySelector('.profile__edit-button');
-
-profileInfoTextNode.addEventListener('click', openPopup);
-popupSaveButton.addEventListener('click', savePopupInput);
+popupForm.addEventListener('submit', savePopupInput);
 popupCloseButton.addEventListener('click', closePopup);
+
+
+const profileInfoTextNode = document.querySelector('.profile__info-text');
+profileInfoTextNode.addEventListener('click', openPopup);
+

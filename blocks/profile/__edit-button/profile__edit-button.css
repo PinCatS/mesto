@@ -1,29 +1,18 @@
 .profile__edit-button {
     position: absolute;
     top: 8px;
-    right: calc(-18px - 10px);
-    padding: 0;
-    border: 0;
+    right: calc(-18px - 10px);  /* button width + required margin */
     width: 18px;
     height: 18px;
     background: no-repeat url('../../../images/edit-button.svg') center / contain;
-    opacity: 1;
-    transition: opacity .2s ease;
 }
 
 .profile__edit-button:hover {
   opacity: .6;
-  cursor: pointer;
 }
 
 .profile__edit-button:active {
-  outline: unset;
   opacity: .4;
-}
-
-.profile__edit-button:focus,
-.profile__edit-button:visited {
-  outline: unset;
 }
 
 @media screen and (min-width: 768px) {

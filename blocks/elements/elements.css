@@ -1,9 +1,0 @@
-.elements {
-  padding-top: 36px;
-}
-
-@media screen and (min-width: 1024px) {
-  .elements {
-    padding-top: 50px;
-  }
-}
