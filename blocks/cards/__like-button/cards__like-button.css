@@ -4,23 +4,13 @@
   min-height: 19px;
   padding: 0;
   border: 0;
-  background-color: unset;
   background: no-repeat url('../../../images/like-icon.svg') center / contain;
-  opacity: 1;
-  transition: opacity .2s ease;
 }
 
 .cards__like-button:hover {
   opacity: .6;
-  cursor: pointer;
 }
 
 .cards__like-button:active {
-  outline: unset;
   opacity: .8;
-}
-
-.cards__like-button:focus,
-.cards__like-button:visited {
-  outline: unset;
 }

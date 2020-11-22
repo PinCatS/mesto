@@ -1,9 +1,0 @@
-.places {
-  padding-top: 36px;
-}
-
-@media screen and (min-width: 1024px) {
-  .places {
-    padding-top: 50px;
-  }
-}
