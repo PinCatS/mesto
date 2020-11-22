@@ -19,7 +19,3 @@ The fourth project of Web developer program at Yandex.Praktikum and the first pr
 
 1. You can open it by going to the project's github.io page [Mesto](https://pincats.github.io/mesto/)
 2. You can download or clone the project and open index.html in any browser locally
-
-## TODOs
-
-* Extract common code into mixins
