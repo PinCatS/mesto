@@ -12,7 +12,17 @@
 
 @media screen and (min-width: 1024px) {
   .profile__info-text {
-    max-width: 294px;
+    max-width: 336px;
     text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .profile__info-text::before {
+    order: 3;
+    content: '';
+    display: block;
+    width: 100%;
   }
 }

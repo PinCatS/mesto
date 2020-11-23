@@ -17,6 +17,7 @@
 
 @media screen and (min-width: 1024px) {
   .profile__activity {
+    order: 4;
     margin: 0;
     font-size: 18px;
     line-height: calc(22 / 18);
