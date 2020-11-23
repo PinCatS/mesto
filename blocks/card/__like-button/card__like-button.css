@@ -1,4 +1,4 @@
-.cards__like-button {
+.card__like-button {
   margin: 0 22px 0 24px;
   min-width: 21px;
   min-height: 19px;
@@ -7,10 +7,10 @@
   background: no-repeat url('../../../images/like-icon.svg') center / contain;
 }
 
-.cards__like-button:hover {
+.card__like-button:hover {
   opacity: .6;
 }
 
-.cards__like-button:active {
+.card__like-button:active {
   opacity: .8;
 }
