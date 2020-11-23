@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  max-height: 361px;
   /* gradient to prevent thin round white lines at the top round corners
   when the image is black */
   background: linear-gradient(to top, white 50%, black);
