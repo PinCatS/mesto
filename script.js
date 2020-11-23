@@ -35,8 +35,8 @@ let profileNameNode = profileInfoTextNode.querySelector('.profile__name');
 let profileActivityNode = profileInfoTextNode.querySelector('.profile__activity');
 
 /* Getting form name and activity inputs */
-let profileNameInput = popupNode.querySelector('.popup__profile-name');
-let profileActivityInput = popupNode.querySelector('.popup__profile-activity');
+let profileNameInput = popupNode.querySelector('.popup__input_name_name');
+let profileActivityInput = popupNode.querySelector('.popup__input_name_activity');
 
 /* Add event listeners */
 popupForm.addEventListener('submit', savePopupInput);
