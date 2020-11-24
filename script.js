@@ -14,11 +14,6 @@ let profileActivityNode = profileInfoTextNode.querySelector('.profile__activity'
 let profileNameInput = popupNode.querySelector('.popup__input_name_name');
 let profileActivityInput = popupNode.querySelector('.popup__input_name_activity');
 
-/* Add event listeners */
-popupForm.addEventListener('submit', savePopupInput);
-popupCloseButton.addEventListener('click', closePopup);
-profileInfoEditButton.addEventListener('click', openPopup);
-
 
 /* Handlers definition and helper functions */
 function populateInputWithCurrentValues() {
@@ -44,3 +39,8 @@ function savePopupInput(evt) {
   closePopup();
 }
 
+
+/* Add event listeners */
+popupForm.addEventListener('submit', savePopupInput);
+popupCloseButton.addEventListener('click', closePopup);
+profileInfoEditButton.addEventListener('click', openPopup);
