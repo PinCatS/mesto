@@ -1,3 +1,30 @@
+const initialCards = [
+  {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
 const addCardPopupElementData = {
   popupName: 'popup_name_add-card',
   form: {
@@ -66,9 +93,15 @@ const profileNameNode = profileInfoTextNode.querySelector('.profile__name');
 const profileActivityNode = profileInfoTextNode.querySelector('.profile__activity');
 
 /* Getting form name and activity inputs */
-const profileNameInput = popupNode.querySelector('.popup__input_name_name');
-const profileActivityInput = popupNode.querySelector('.popup__input_name_activity');
+const profileNameInput = popupForm.querySelector('.popup__input_name_name');
+const profileActivityInput = popupForm.querySelector('.popup__input_name_activity');
 
+/* Getting add-card-form name and link nodes */
+const places = document.querySelector(".places > .cards");
+const addCardNameInput = addCardForm.querySelector('.popup__input_name_place-name');
+const paddCardLinkInput = addCardForm.querySelector('.popup__input_name_place-image-url');
+
+fillPlacesWithCards(initialCards);
 
 /* Handlers definition and helper functions */
 function populateInputWithCurrentValues() {
@@ -140,8 +173,30 @@ function buildPopup(popupElementData) {
 
 function addNewCard(evt) {
   evt.preventDefault();
-  console.log('Add new card event!', evt);
+
+  const cardFragment = buildCard(addCardNameInput.value, paddCardLinkInput.value);
+  places.prepend(cardFragment);
+
   closePopup(evt);
+}
+
+function buildCard(name, imageUrl) {
+  const cardTemplate = document.querySelector('#card').content;
+  const card = cardTemplate.cloneNode(true);
+
+  const cardImageNode = card.querySelector('.card__image');
+  cardImageNode.src = imageUrl;
+  cardImageNode.alt = name;
+
+  card.querySelector('.card__title').textContent = name;
+
+  return card;
+}
+
+function fillPlacesWithCards(cards) {
+  for (let {name, link} of cards) {
+    places.append(buildCard(name, link));
+  }
 }
 
 

@@ -25,56 +25,15 @@
       </section>
 
       <section class="places page__places">
-        <ul class="cards">
-          <li class="card">
-            <img src="./images/mesto_alaska.jpg" alt="Аляска" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Аляска</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_baikal.jpg" alt="Байкал" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Байкал</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_alska-2.jpg" alt="Аврора Аляска" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Аврора</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_himalayi.jpg" alt="Гималаи" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Гималаи</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_sahara.jpg" alt="Сахара" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Сахара</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_volcano.jpg" alt="Ключевская Сопка" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Ключевская Сопка</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class="cards"></ul>
       </section>
     </main>
 
     <footer class="footer page__footer">
       <p class="footer__copyright">&copy;2020 Mesto Russia</p>
     </footer>
+
+    <!-- Templates -->
 
     <template id="popup">
       <div class="popup">
@@ -88,6 +47,16 @@
           </fieldset>
         </form>
       </div>
+    </template>
+
+    <template id="card">
+      <li class="card">
+        <img class="card__image">
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button type="button" aria-label="Нравится" class="button card__like-button"></button>
+        </div>
+      </li>
     </template>
 
     <script src="script.js"></script>
