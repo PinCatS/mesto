@@ -7,18 +7,6 @@
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
-    <div class="popup">
-      <form class="popup__container" name="profile-edit-form">
-        <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
-        <h2 class="popup__heading">Редактировать профиль</h2>
-        <fieldset class="popup__info">
-          <input type="text" class="form-input popup__input popup__input_name_name" name="profile-name" placeholder="Имя профиля">
-          <input type="text" class="form-input popup__input popup__input_name_activity" name="profile-activity" placeholder="Деятельность">
-          <button type="submit" class="button popup__save-button">Сохранить</button>
-        </fieldset>
-      </form>
-    </div>
-
     <header class="header page__header">
       <img src="./images/logo.svg" alt="Лого Mesto" class="header__logo">
     </header>
@@ -87,6 +75,20 @@
     <footer class="footer page__footer">
       <p class="footer__copyright">&copy;2020 Mesto Russia</p>
     </footer>
+
+    <template id="popup">
+      <div class="popup">
+        <form class="popup__container">
+          <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
+          <h2 class="popup__heading"></h2>
+          <fieldset class="popup__info">
+            <input type="text" class="form-input popup__input">
+            <input type="text" class="form-input popup__input">
+            <button type="submit" class="button popup__save-button"></button>
+          </fieldset>
+        </form>
+      </div>
+    </template>
 
     <script src="script.js"></script>
 </body>
