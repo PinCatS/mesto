@@ -192,12 +192,18 @@ function buildCard(name, imageUrl) {
   card.querySelector('.card__title').textContent = name;
 
   card.querySelector('.card__like-button').addEventListener('click', handleLikeButtonClick);
+  card.querySelector('.card__remove-button').addEventListener('click', removeCard);
 
   return card;
 }
 
 function handleLikeButtonClick(evt) {
   evt.target.classList.toggle('card__like-button_active');
+}
+
+function removeCard(evt) {
+  const card = evt.target.closest('.card');
+  card.remove();
 }
 
 function fillPlacesWithCards(cards) {
