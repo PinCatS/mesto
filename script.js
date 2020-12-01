@@ -101,6 +101,7 @@ const places = document.querySelector(".places > .cards");
 const addCardNameInput = addCardForm.querySelector('.popup__input_name_place-name');
 const paddCardLinkInput = addCardForm.querySelector('.popup__input_name_place-image-url');
 
+
 fillPlacesWithCards(initialCards);
 
 /* Handlers definition and helper functions */
@@ -190,7 +191,13 @@ function buildCard(name, imageUrl) {
 
   card.querySelector('.card__title').textContent = name;
 
+  card.querySelector('.card__like-button').addEventListener('click', handleLikeButtonClick);
+
   return card;
+}
+
+function handleLikeButtonClick(evt) {
+  evt.target.classList.toggle('card__like-button_active');
 }
 
 function fillPlacesWithCards(cards) {
