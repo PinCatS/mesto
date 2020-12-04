@@ -41,21 +41,31 @@
       </figure>
     </div>
 
-    <!-- Templates -->
+    <div class="popup popup_name_edit-profile">
+      <form class="popup__container" name="profile-edit-form">
+        <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <fieldset class="popup__info">
+          <input type="text" class="form-input popup__input popup__input_name_name" name="profile-name" placeholder="Имя профиля">
+          <input type="text" class="form-input popup__input popup__input_name_activity" name="profile-activity" placeholder="Деятельность">
+          <button type="submit" class="button popup__save-button">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
 
-    <template id="popup">
-      <div class="popup">
-        <form class="popup__container">
-          <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
-          <h2 class="popup__heading"></h2>
-          <fieldset class="popup__info">
-            <input type="text" class="form-input popup__input">
-            <input type="text" class="form-input popup__input">
-            <button type="submit" class="button popup__save-button"></button>
-          </fieldset>
-        </form>
-      </div>
-    </template>
+    <div class="popup popup_name_add-card">
+      <form class="popup__container" name="add-card-form">
+        <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
+        <h2 class="popup__heading">Новое место</h2>
+        <fieldset class="popup__info">
+          <input type="text" class="form-input popup__input popup__input_name_place-name" name="place-name" placeholder="Название">
+          <input type="text" class="form-input popup__input popup__input_name_place-image-url" name="place-image-url" placeholder="Ссылка на картинку">
+          <button type="submit" class="button popup__save-button">Создать</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- Templates -->
 
     <template id="card">
       <li class="card">
