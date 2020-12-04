@@ -1,34 +1,33 @@
-/* Getting form, profile info and buttons */
-const profileEditFormPopup = document.querySelector('.popup_name_edit-profile');
-const popupForm = profileEditFormPopup.querySelector('.popup__container');
-const profileInfoTextNode = document.querySelector('.profile__info-text');
+/* Edit profile form variables */
+const editProfilePopup = document.querySelector('.popup_name_edit-profile');
 
-const popupCloseButton = popupForm.querySelector('.popup__close-button');
+const popupEditPorfileForm = editProfilePopup.querySelector('.popup__container');
+const profileInfoTextNode = document.querySelector('.profile__info-text');
+const editProfilePopupCloseButton = popupEditPorfileForm.querySelector('.popup__close-button');
 const profileInfoEditButton = profileInfoTextNode.querySelector('.profile__edit-button');
 
+const profileNameNode = profileInfoTextNode.querySelector('.profile__name');
+const profileActivityNode = profileInfoTextNode.querySelector('.profile__activity');
+
+const profileNameInput = popupEditPorfileForm.querySelector('.popup__input_name_name');
+const profileActivityInput = popupEditPorfileForm.querySelector('.popup__input_name_activity');
+
+/* Add new card form variables */
 const handleAddNewCardButtonClickPopup = document.querySelector('.popup_name_add-card');
 const addCardForm = handleAddNewCardButtonClickPopup.querySelector('.popup__container');
 const addCardCloseButton = addCardForm.querySelector('.popup__close-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
-/* Getting nodes with profile name and activity */
-const profileNameNode = profileInfoTextNode.querySelector('.profile__name');
-const profileActivityNode = profileInfoTextNode.querySelector('.profile__activity');
-
-/* Getting form name and activity inputs */
-const profileNameInput = popupForm.querySelector('.popup__input_name_name');
-const profileActivityInput = popupForm.querySelector('.popup__input_name_activity');
-
-/* Getting add-card-form name and link nodes */
 const cardsListNode = document.querySelector('.places > .cards');
 const addCardNameInput = addCardForm.querySelector('.popup__input_name_place-name');
 const paddCardLinkInput = addCardForm.querySelector('.popup__input_name_place-image-url');
 
-/* Getting image popup info */
+/* Image popup variables */
 const imagePopup = document.querySelector('.image-popup');
 const popupImage = imagePopup.querySelector('.image-popup__image');
 const popupFigureImageCaption = imagePopup.querySelector('.image-popup__caption')
 const imagePopupCloseButton = imagePopup.querySelector('.popup__close-button');
+
 
 const initialCards = [
   {
@@ -62,12 +61,17 @@ fillPageWithInitialPlaceCards(initialCards);
 
 /* Handlers definition and helper functions */
 
+function fillPageWithInitialPlaceCards(cards) {
+  const cardNodes = cards.map(buildCard);
+  cardsListNode.append(...cardNodes);
+}
+
 function handlePopupCloseButtonClick(evt) {
   const formName = getFormNameOfTargetButton(evt.target);
 
   switch(formName) {
     case 'profile-edit-form':
-      closePopup(profileEditFormPopup);
+      closePopup(editProfilePopup);
       break;
     case 'add-card-form':
       closePopup(handleAddNewCardButtonClickPopup);
@@ -87,7 +91,7 @@ function handlePopupOpenButtonClick(evt) {
 
     switch(buttonName) {
       case 'profile-edit-button':
-        openPopup(profileEditFormPopup);
+        openPopup(editProfilePopup);
         populateProfileFormInputsWithCurrentValues();
         break;
       case 'profile-add-button':
@@ -132,11 +136,6 @@ function addNewCardFromFromInput() {
   });
 
   cardsListNode.prepend(cardFragment);
-}
-
-function fillPageWithInitialPlaceCards(cards) {
-  const cardNodes = cards.map(buildCard);
-  cardsListNode.append(...cardNodes);
 }
 
 function buildCard({ name, link }) {
@@ -193,8 +192,8 @@ function removeCard(evt) {
 
 
 /* Add event listeners */
-popupForm.addEventListener('submit', handlePopupSaveButtonClick);
-popupCloseButton.addEventListener('click', handlePopupCloseButtonClick);
+popupEditPorfileForm.addEventListener('submit', handlePopupSaveButtonClick);
+editProfilePopupCloseButton.addEventListener('click', handlePopupCloseButtonClick);
 profileInfoEditButton.addEventListener('click', handlePopupOpenButtonClick);
 
 addCardForm.addEventListener('submit', handleAddNewCardButtonClick);
