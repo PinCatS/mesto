@@ -7,18 +7,6 @@
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
-    <div class="popup">
-      <form class="popup__container" name="profile-edit-form">
-        <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
-        <h2 class="popup__heading">Редактировать профиль</h2>
-        <fieldset class="popup__info">
-          <input type="text" class="form-input popup__input popup__input_name_name" name="profile-name" placeholder="Имя профиля">
-          <input type="text" class="form-input popup__input popup__input_name_activity" name="profile-activity" placeholder="Деятельность">
-          <button type="submit" class="button popup__save-button">Сохранить</button>
-        </fieldset>
-      </form>
-    </div>
-
     <header class="header page__header">
       <img src="./images/logo.svg" alt="Лого Mesto" class="header__logo">
     </header>
@@ -30,63 +18,68 @@
           <div class="profile__info-text">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__activity">Исследователь океана</p>
-            <button type="button" aria-label="Редактировать профиль" class="button profile__edit-button"></button>
+            <button type="button" aria-label="Редактировать профиль" name="profile-edit-button" class="button profile__edit-button"></button>
           </div>
         </div>
-        <button type="button" aria-label="Добавить карточку" class="button profile__add-button"></button>
+        <button type="button" aria-label="Добавить карточку" name="profile-add-button" class="button profile__add-button"></button>
       </section>
 
-      <section class="places page__places">
-        <ul class="cards">
-          <li class="card">
-            <img src="./images/mesto_alaska.jpg" alt="Аляска" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Аляска</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_baikal.jpg" alt="Байкал" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Байкал</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_alska-2.jpg" alt="Аврора Аляска" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Аврора</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_himalayi.jpg" alt="Гималаи" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Гималаи</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_sahara.jpg" alt="Сахара" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Сахара</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img src="./images/mesto_volcano.jpg" alt="Ключевская Сопка" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Ключевская Сопка</h2>
-              <button type="button" aria-label="Нравится" class="button card__like-button"></button>
-            </div>
-          </li>
-        </ul>
+      <section class="places page__places" aria-label="Карточки мест">
+        <ul class="cards"></ul>
       </section>
     </main>
 
     <footer class="footer page__footer">
       <p class="footer__copyright">&copy;2020 Mesto Russia</p>
     </footer>
+
+
+    <!-- Popus -->
+
+    <div class="popup popup_name_edit-profile">
+      <form class="popup__container" name="profile-edit-form">
+        <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <fieldset class="popup__info">
+          <input type="text" class="form-input popup__input popup__input_name_name" name="profile-name" placeholder="Имя профиля">
+          <input type="text" class="form-input popup__input popup__input_name_activity" name="profile-activity" placeholder="Деятельность">
+          <button type="submit" class="button popup__save-button">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="popup popup_name_add-card">
+      <form class="popup__container popup__container_size_small" name="add-card-form">
+        <button type="button" aria-label="Закрыть форму" class="button popup__close-button popup__close-button_location_topright"></button>
+        <h2 class="popup__heading">Новое место</h2>
+        <fieldset class="popup__info">
+          <input type="text" class="form-input popup__input popup__input_name_place-name" name="place-name" placeholder="Название">
+          <input type="text" class="form-input popup__input popup__input_name_place-image-url" name="place-image-url" placeholder="Ссылка на картинку">
+          <button type="submit" class="button popup__save-button">Создать</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="popup image-popup">
+      <figure class="popup__container popup__container_size_small image-popup__container">
+        <button type="button" aria-label="Закрыть картинку" class="button popup__close-button popup__close-button_location_topright"></button>
+        <img class="image-popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg">
+        <figcaption class="image-popup__caption">Камчатка</figcaption>
+      </figure>
+    </div>
+
+    <!-- Templates -->
+
+    <template id="card">
+      <li class="card">
+        <button type="button" aria-label="Удалить карточку" class="button card__remove-button"></button>
+        <img class="card__image">
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button type="button" aria-label="Нравится" class="button card__like-button"></button>
+        </div>
+      </li>
+    </template>
 
     <script src="script.js"></script>
 </body>

@@ -1,0 +1,14 @@
+.card__remove-button {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  min-width: 18px;
+  min-height: 19px;
+  padding: 0;
+  border: 0;
+  background: no-repeat url('../../../images/trash-icon.svg') center / contain;
+}
+
+.card__remove-button:hover {
+  opacity: .6;
+}

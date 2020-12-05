@@ -1,0 +1,6 @@
+.image-popup__container {
+  max-width: 75vw;
+  max-height: 76vh;
+  background-color: unset;
+  box-shadow: unset;
+}
