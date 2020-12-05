@@ -1,3 +1,6 @@
+const OPEN_POPUP_FADE_DELAY_IN_MS_UNITS = 100;
+const CLOSE_POPUP_FADE_DELAY_IN_MS_UNITS = 300;
+
 /* Edit profile form variables */
 const editProfilePopup = document.querySelector('.popup_name_edit-profile');
 
@@ -83,7 +86,8 @@ function getFormNameOfTargetButton(button) {
 }
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_visible');
+  setTimeout(() => popup.classList.remove('popup_opened'), CLOSE_POPUP_FADE_DELAY_IN_MS_UNITS);
 }
 
 function handlePopupOpenButtonClick(evt) {
@@ -105,6 +109,7 @@ function getTargetButtonName(button) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  setTimeout(() => popup.classList.add('popup_visible'), OPEN_POPUP_FADE_DELAY_IN_MS_UNITS);
 }
 
 function populateProfileFormInputsWithCurrentValues() {
