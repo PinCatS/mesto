@@ -87,7 +87,7 @@ function getFormNameOfTargetButton(button) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_visible');
-  setTimeout(() => popup.classList.remove('popup_opened'), POPUP_FADE_DELAY_IN_MS_UNITS);
+  setTimeout(() => popup.classList.remove('popup_opened'), CLOSE_POPUP_FADE_DELAY_IN_MS_UNITS);
 }
 
 function handlePopupOpenButtonClick(evt) {
