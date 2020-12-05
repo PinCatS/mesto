@@ -2,6 +2,9 @@
   background-image: url('../../../../images/like-icon-filled.svg');
 }
 
-.card__like-button_active:hover {
-  opacity: 1;
+@media (hover: none) {
+  .card__like-button_active:hover {
+    opacity: 1;
+  }
 }
+

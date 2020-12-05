@@ -11,5 +11,8 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0,0.5);
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
 }
