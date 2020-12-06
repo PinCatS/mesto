@@ -60,6 +60,14 @@ function getTargetButtonName(button) {
   return button.name;
 }
 
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+}
+
 function addNewCardFromFromInput() {
   const cardFragment = buildCard({
     name: addCardNameInput.value,
@@ -72,23 +80,6 @@ function addNewCardFromFromInput() {
 function clearAddNewCardInputs() {
   addCardNameInput.value = '';
   paddCardLinkInput.value = '';
-}
-
-function handleImagePopupCloseButtonClick(evt) {
-  closePopup(imagePopup);
-}
-
-function handleLikeButtonClick(evt) {
-  const likeButton = evt.target;
-  likeButton.classList.toggle('card__like-button_active');
-}
-
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
 }
 
 function populateProfileFormInputsWithCurrentValues() {
@@ -116,6 +107,15 @@ function removeCard(evt) {
 function fillPageWithInitialPlaceCards(cards) {
   const cardNodes = cards.map(buildCard);
   cardsListNode.append(...cardNodes);
+}
+
+function handleImagePopupCloseButtonClick(evt) {
+  closePopup(imagePopup);
+}
+
+function handleLikeButtonClick(evt) {
+  const likeButton = evt.target;
+  likeButton.classList.toggle('card__like-button_active');
 }
 
 function handlePopupOpenButtonClick(evt) {
