@@ -72,6 +72,12 @@ function getTargetButtonName(button) {
   return button.name;
 }
 
+function removeCard(evt) {
+  const trashButtonNode = evt.target;
+  const card = getParentCard(trashButtonNode);
+  card.remove();
+}
+
 function handleLikeButtonClick(evt) {
   const likeButton = evt.target;
   likeButton.classList.toggle('card__like-button_active');
@@ -111,12 +117,6 @@ function addNewCardFromFromInput() {
   });
 
   cardsListNode.prepend(cardFragment);
-}
-
-function removeCard(evt) {
-  const trashButtonNode = evt.target;
-  const card = getParentCard(trashButtonNode);
-  card.remove();
 }
 
 function fillPageWithInitialPlaceCards(cards) {
