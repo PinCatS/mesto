@@ -31,64 +31,21 @@ const imagePopupCloseButton = imagePopup.querySelector('.popup__close-button');
 
 /* Handlers definition and helper functions */
 
-function buildCard({ name, link }) {
-  const cardTemplate = document.querySelector('#card').content;
-  const cardFragment = cardTemplate.cloneNode(true);
-
-  const cardImage = cardFragment.querySelector('.card__image');
-  cardImage.src = link;
-  cardImage.alt = name;
-
-  cardFragment.querySelector('.card__title').textContent = name;
-
-  cardImage.addEventListener('click', handleCardImageClick);
-  cardFragment.querySelector('.card__like-button').addEventListener('click', handleLikeButtonClick);
-  cardFragment.querySelector('.card__remove-button').addEventListener('click', removeCard);
-
-  return cardFragment;
-}
-
-function getParentCard(node) {
-  return node.closest('.card');
-}
-
-function getFormNameOfTargetButton(button) {
-  return button.closest('.popup__container').name;
-}
-
-function getTargetButtonName(button) {
-  return button.name;
-}
-
-function addNewCardFromFromInput() {
-  const cardFragment = buildCard({
-    name: addCardNameInput.value,
-    link: paddCardLinkInput.value
-  });
-
-  cardsListNode.prepend(cardFragment);
-}
-
-function clearAddNewCardInputs() {
-  addCardNameInput.value = '';
-  paddCardLinkInput.value = '';
-}
-
-function handleImagePopupCloseButtonClick(evt) {
-  closePopup(imagePopup);
-}
-
-function handleLikeButtonClick(evt) {
-  const likeButton = evt.target;
-  likeButton.classList.toggle('card__like-button_active');
-}
-
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+}
+
+function getParentCard(node) {
+  return node.closest('.card');
+}
+
+function clearAddNewCardInputs() {
+  addCardNameInput.value = '';
+  paddCardLinkInput.value = '';
 }
 
 function populateProfileFormInputsWithCurrentValues() {
@@ -107,6 +64,55 @@ function fillImagePopup(cardTitle, imageLink) {
   popupFigureImageCaption.textContent = cardTitle;
 }
 
+function getFormNameOfTargetButton(button) {
+  return button.closest('.popup__container').name;
+}
+
+function getTargetButtonName(button) {
+  return button.name;
+}
+
+function handleLikeButtonClick(evt) {
+  const likeButton = evt.target;
+  likeButton.classList.toggle('card__like-button_active');
+}
+
+function handleCardImageClick(evt) {
+  const imageNode = evt.target;
+  const imageLink = imageNode.src;
+  const card = getParentCard(imageNode);
+  const cardTitle = card.querySelector('.card__title').textContent;
+
+  openPopup(imagePopup);
+  fillImagePopup(cardTitle, imageLink);
+}
+
+function buildCard({ name, link }) {
+  const cardTemplate = document.querySelector('#card').content;
+  const cardFragment = cardTemplate.cloneNode(true);
+
+  const cardImage = cardFragment.querySelector('.card__image');
+  cardImage.src = link;
+  cardImage.alt = name;
+
+  cardFragment.querySelector('.card__title').textContent = name;
+
+  cardImage.addEventListener('click', handleCardImageClick);
+  cardFragment.querySelector('.card__like-button').addEventListener('click', handleLikeButtonClick);
+  cardFragment.querySelector('.card__remove-button').addEventListener('click', removeCard);
+
+  return cardFragment;
+}
+
+function addNewCardFromFromInput() {
+  const cardFragment = buildCard({
+    name: addCardNameInput.value,
+    link: paddCardLinkInput.value
+  });
+
+  cardsListNode.prepend(cardFragment);
+}
+
 function removeCard(evt) {
   const trashButtonNode = evt.target;
   const card = getParentCard(trashButtonNode);
@@ -116,6 +122,10 @@ function removeCard(evt) {
 function fillPageWithInitialPlaceCards(cards) {
   const cardNodes = cards.map(buildCard);
   cardsListNode.append(...cardNodes);
+}
+
+function handleImagePopupCloseButtonClick(evt) {
+  closePopup(imagePopup);
 }
 
 function handlePopupOpenButtonClick(evt) {
@@ -154,16 +164,6 @@ function handleAddNewCardButtonClick(evt) {
   addNewCardFromFromInput();
   clearAddNewCardInputs();
   handlePopupCloseButtonClick(evt);
-}
-
-function handleCardImageClick(evt) {
-  const imageNode = evt.target;
-  const imageLink = imageNode.src;
-  const card = getParentCard(imageNode);
-  const cardTitle = card.querySelector('.card__title').textContent;
-
-  openPopup(imagePopup);
-  fillImagePopup(cardTitle, imageLink);
 }
 
 
