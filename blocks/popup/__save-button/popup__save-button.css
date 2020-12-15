@@ -13,18 +13,6 @@
   line-height: calc(17 / 14);
 }
 
-.popup__save-button:disabled {
-  color: #000;
-  opacity: .2;
-  background-color: #fff;
-  border: 1px solid #000;
-}
-
-.popup__save-button:disabled:hover {
-  opacity: .2;
-  cursor: default;
-}
-
 .popup__save-button:hover {
   opacity: .8;
 }

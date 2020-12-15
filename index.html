@@ -37,28 +37,51 @@
     <!-- Popus -->
 
     <div class="popup popup_name_edit-profile">
-      <form class="popup__container" name="profile-edit-form">
+      <form class="popup__container popup__form" name="profile-edit-form" novalidate>
         <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
         <h2 class="popup__heading">Редактировать профиль</h2>
         <fieldset class="popup__info">
-          <input type="text" class="form-input popup__input popup__input_name_name" name="profile-name" placeholder="Имя профиля">
-          <p class="popup__error">Вы пропустили это поле</p>
-          <input type="text" class="form-input popup__input popup__input_name_activity" name="profile-activity" placeholder="Деятельность">
-          <p class="popup__error">Вы пропустили это поле</p>
+          <input
+            type="text"
+            class="form-input popup__input popup__input_name_name"
+            name="profile-name"
+            placeholder="Имя профиля"
+            minlength="2" maxlength="40"
+            required>
+          <span class="popup__input-error popup__input-error_name_profile-name"></span>
+          <input
+            type="text"
+            class="form-input popup__input popup__input_name_activity"
+            name="profile-activity"
+            placeholder="Деятельность"
+            minlength="2" maxlength="200"
+            required>
+          <span class="popup__input-error popup__input-error_name_profile-activity"></span>
           <button type="submit" class="button popup__save-button">Сохранить</button>
         </fieldset>
       </form>
     </div>
 
     <div class="popup popup_name_add-card">
-      <form class="popup__container popup__container_size_small" name="add-card-form">
+      <form class="popup__container popup__container_size_small popup__form" name="add-card-form" novalidate>
         <button type="button" aria-label="Закрыть форму" class="button popup__close-button popup__close-button_location_topright"></button>
         <h2 class="popup__heading">Новое место</h2>
         <fieldset class="popup__info">
-          <input type="text" class="form-input popup__input popup__input_name_place-name" name="place-name" placeholder="Название">
-          <p class="popup__error">Вы пропустили это поле</p>
-          <input type="text" class="form-input popup__input popup__input_name_place-image-url" name="place-image-url" placeholder="Ссылка на картинку">
-          <p class="popup__error">Вы пропустили это поле</p>
+          <input
+            type="text"
+            class="form-input popup__input popup__input_name_place-name"
+            name="place-name"
+            placeholder="Название"
+            minlength="2" maxlength="30"
+            required>
+          <span class="popup__input-error popup__input-error_name_place-name"></span>
+          <input
+            type="url"
+            class="form-input popup__input popup__input_name_place-image-url"
+            name="place-image-url"
+            placeholder="Ссылка на картинку"
+            required>
+          <span class="popup__input-error popup__input-error_name_place-image-url"></span>
           <button type="submit" class="button popup__save-button">Создать</button>
         </fieldset>
       </form>
@@ -86,6 +109,7 @@
     </template>
 
     <script src="./scripts/initial-cards.js"></script>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/script.js"></script>
 </body>
 </html>
