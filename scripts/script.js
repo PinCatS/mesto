@@ -130,10 +130,6 @@ function buildCard({ name, link }) {
 
   cardFragment.querySelector('.card__title').textContent = name;
 
-  cardImage.addEventListener('click', handleCardImageClick);
-  cardFragment.querySelector('.card__like-button').addEventListener('click', handleLikeButtonClick);
-  cardFragment.querySelector('.card__remove-button').addEventListener('click', removeCard);
-
   return cardFragment;
 }
 
@@ -211,6 +207,16 @@ function handleAddNewCardButtonClick(evt) {
   closePopup(addNewCardPopup);
 }
 
+function handleCardClicks(evt) {
+  if (evt.target.classList.contains('card__image')) {
+    handleCardImageClick(evt);
+  } else if (evt.target.classList.contains('card__like-button')) {
+    handleLikeButtonClick(evt);
+  } else if (evt.target.classList.contains('card__remove-button')) {
+    removeCard(evt);
+  }
+}
+
 
 /* Add event listeners  and call functions */
 
@@ -221,6 +227,8 @@ profileInfoEditButton.addEventListener('click', handlePopupOpenButtonClick);
 addNewCardPopup.addEventListener('click', handlePopupCloseAction);
 addCardForm.addEventListener('submit', handleAddNewCardButtonClick);
 addCardButton.addEventListener('click', handlePopupOpenButtonClick);
+
+cardsListNode.addEventListener('click', handleCardClicks);
 
 imagePopup.addEventListener('click', handlePopupCloseAction);
 
