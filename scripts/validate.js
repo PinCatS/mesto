@@ -45,7 +45,7 @@ function enableValidation(config) {
     toggleButtonState(formElement, buttonElement);
 
     inputList.forEach(inputElement => {
-      inputElement.addEventListener('input', evt => {
+      inputElement.addEventListener('input', () => {
         validateInput(formElement, inputElement);
         toggleButtonState(formElement, buttonElement);
       });
