@@ -68,6 +68,10 @@ function clearFormInputs(formElement) {
   formElement.reset();
 }
 
+function findOpenedPopup() {
+  return document.querySelector('.popup_opened');
+}
+
 function populateProfileFormInputsWithCurrentValues() {
   profileNameInput.value = profileNameNode.textContent;
   profileActivityInput.value = profileActivityNode.textContent;
@@ -160,51 +164,55 @@ function isPopupCloseAction(evt) {
    );
 }
 
+function doCleanUpAndClosePopup(popupElement) {
+  removeKeyupListener(handlePopupCloseAction);
+  closePopup(popupElement);
+  if (hasForm(popupElement)) {
+    const formElement = getPopupForm(popupElement);
+    clearFormInputs(formElement);
+    resetFormValidityState(formElement);
+  }
+}
+
 function handlePopupCloseAction(evt) {
   if (!isPopupCloseAction(evt)) return;
 
-  const openedPopup = document.querySelector('.popup_opened');
-
+  const openedPopup = findOpenedPopup();
   if (openedPopup != null) {
-    removeKeyupListener(handlePopupCloseAction);
-    closePopup(openedPopup);
-    if (hasForm(openedPopup)) {
-      const formElement = getPopupForm(openedPopup);
-      clearFormInputs(formElement);
-      resetFormValidityState(formElement);
-    }
+    doCleanUpAndClosePopup(openedPopup);
   }
 }
 
 function handlePopupOpenButtonClick(evt) {
   const buttonName = getTargetButtonName(evt.target);
 
+  setKeyupListener(handlePopupCloseAction);
+
   switch(buttonName) {
     case 'profile-edit-button':
-      setKeyupListener(handlePopupCloseAction);
       openPopup(editProfilePopup);
       populateProfileFormInputsWithCurrentValues();
       break;
     case 'profile-add-button':
-      setKeyupListener(handlePopupCloseAction);
       openPopup(addNewCardPopup);
   }
 }
 
 function handlePopupSaveButtonClick(evt) {
   evt.preventDefault();
-  saveEditProfileInputValuesToPage();
-  clearFormInputs(popupEditPorfileForm);
-  resetFormValidityState(popupEditPorfileForm);
-  closePopup(editProfilePopup);
-}
 
-function handleAddNewCardButtonClick(evt) {
-  evt.preventDefault();
-  addNewCardFromInput();
-  clearFormInputs(addCardForm);
-  resetFormValidityState(addCardForm);
-  closePopup(addNewCardPopup);
+  const formElement = evt.currentTarget;
+
+  switch (formElement.name) {
+    case 'profile-edit-form':
+      saveEditProfileInputValuesToPage();
+      doCleanUpAndClosePopup(editProfilePopup);
+      break;
+    case 'add-card-form':
+      addNewCardFromInput();
+      doCleanUpAndClosePopup(addNewCardPopup);
+      break;
+  }
 }
 
 function handleCardClicks(evt) {
@@ -225,7 +233,7 @@ popupEditPorfileForm.addEventListener('submit', handlePopupSaveButtonClick);
 profileInfoEditButton.addEventListener('click', handlePopupOpenButtonClick);
 
 addNewCardPopup.addEventListener('click', handlePopupCloseAction);
-addCardForm.addEventListener('submit', handleAddNewCardButtonClick);
+addCardForm.addEventListener('submit', handlePopupSaveButtonClick);
 addCardButton.addEventListener('click', handlePopupOpenButtonClick);
 
 cardsListNode.addEventListener('click', handleCardClicks);
