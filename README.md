@@ -1,8 +1,8 @@
-# Project 4: Mesto
+# Project: Mesto
 
 ## Project description
 
-The fourth project of Web developer program at Yandex.Praktikum and the first project where we started using Java Script to process user input
+One of the project of Web developer program at Yandex.Praktikum where we master our javas script skills like adding new card to the page, like them, remove, validate forms.
 
 ## Technologies I used
 
