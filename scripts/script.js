@@ -1,6 +1,8 @@
 'use strict';
 import { initialCards } from './initial-cards.js';
+import { formConfig } from './forms-config.js';
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 /* Edit profile form variables */
 const editProfilePopup = document.querySelector('.popup_name_edit-profile');
@@ -29,17 +31,13 @@ const imagePopup = document.querySelector('.image-popup');
 const popupImage = imagePopup.querySelector('.image-popup__image');
 const popupFigureImageCaption = imagePopup.querySelector('.image-popup__caption')
 
-const {
-  resetFormValidityState,
-  notifyFromsAboutInputChange
-} = enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-});
+/* Enables forms validation */
+const editProfileFormValidator = new FormValidator(popupEditPorfileForm, formConfig);
+const addCardFormValidator = new FormValidator(addCardForm, formConfig);
+
+editProfileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
+
 
 /* Handlers definition and helper functions */
 
@@ -75,7 +73,7 @@ function populateProfileFormInputsWithCurrentValues() {
   profileNameInput.value = profileNameNode.textContent;
   profileActivityInput.value = profileActivityNode.textContent;
 
-  notifyFromsAboutInputChange(profileNameInput, profileActivityInput);
+  editProfileFormValidator.notifyFormsAboutInputChange();
 }
 
 function saveEditProfileInputValuesToPage() {
@@ -156,7 +154,6 @@ function doCleanUpAndClosePopup(popupElement) {
   if (hasForm(popupElement)) {
     const formElement = getPopupForm(popupElement);
     clearFormInputs(formElement);
-    resetFormValidityState(formElement);
   }
 }
 
@@ -181,6 +178,7 @@ function handlePopupOpenButtonClick(evt) {
       break;
     case 'profile-add-button':
       openPopup(addNewCardPopup);
+      addCardFormValidator.resetFormValidityState();
   }
 }
 
