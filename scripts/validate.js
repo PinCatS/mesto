@@ -71,6 +71,7 @@ function enableValidation(config) {
   /* Main entry logic for validation */
   const formList = document.querySelectorAll(config.formSelector);
   formList.forEach(formElement => {
+    /* Do we need that submit event listener ? */
     formElement.addEventListener('submit', evt => evt.preventDefault());
     setEventListeners(formElement);
   })

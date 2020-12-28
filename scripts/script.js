@@ -1,4 +1,6 @@
 'use strict';
+import { initialCards } from './initial-cards.js';
+import Card from './Card.js';
 
 /* Edit profile form variables */
 const editProfilePopup = document.querySelector('.popup_name_edit-profile');
@@ -105,17 +107,9 @@ function removeCard(evt) {
   card.remove();
 }
 
-function buildCard({ name, link }) {
-  const cardTemplate = document.querySelector('#card').content;
-  const cardFragment = cardTemplate.cloneNode(true);
-
-  const cardImage = cardFragment.querySelector('.card__image');
-  cardImage.src = link;
-  cardImage.alt = name;
-
-  cardFragment.querySelector('.card__title').textContent = name;
-
-  return cardFragment;
+function buildCard(cardData) {
+  const card = new Card(cardData, '#card');
+  return card.generateCard();
 }
 
 function handleLikeButtonClick(evt) {
