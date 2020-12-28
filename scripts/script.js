@@ -1,4 +1,3 @@
-'use strict';
 import { initialCards } from './initial-cards.js';
 import { formConfig } from './forms-config.js';
 import Card from './Card.js';
