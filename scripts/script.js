@@ -1,4 +1,7 @@
-'use strict';
+import { initialCards } from './initial-cards.js';
+import { formConfig } from './forms-config.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 /* Edit profile form variables */
 const editProfilePopup = document.querySelector('.popup_name_edit-profile');
@@ -27,17 +30,13 @@ const imagePopup = document.querySelector('.image-popup');
 const popupImage = imagePopup.querySelector('.image-popup__image');
 const popupFigureImageCaption = imagePopup.querySelector('.image-popup__caption')
 
-const {
-  resetFormValidityState,
-  notifyFromsAboutInputChange
-} = enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-});
+/* Enables forms validation */
+const editProfileFormValidator = new FormValidator(popupEditPorfileForm, formConfig);
+const addCardFormValidator = new FormValidator(addCardForm, formConfig);
+
+editProfileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
+
 
 /* Handlers definition and helper functions */
 
@@ -73,7 +72,7 @@ function populateProfileFormInputsWithCurrentValues() {
   profileNameInput.value = profileNameNode.textContent;
   profileActivityInput.value = profileActivityNode.textContent;
 
-  notifyFromsAboutInputChange(profileNameInput, profileActivityInput);
+  editProfileFormValidator.notifyFormsAboutInputChange();
 }
 
 function saveEditProfileInputValuesToPage() {
@@ -99,31 +98,7 @@ function removeKeyupListener(handler) {
   document.removeEventListener('keyup', handler);
 }
 
-function removeCard(evt) {
-  const trashButtonNode = evt.target;
-  const card = getParentCard(trashButtonNode);
-  card.remove();
-}
-
-function buildCard({ name, link }) {
-  const cardTemplate = document.querySelector('#card').content;
-  const cardFragment = cardTemplate.cloneNode(true);
-
-  const cardImage = cardFragment.querySelector('.card__image');
-  cardImage.src = link;
-  cardImage.alt = name;
-
-  cardFragment.querySelector('.card__title').textContent = name;
-
-  return cardFragment;
-}
-
-function handleLikeButtonClick(evt) {
-  const likeButton = evt.target;
-  likeButton.classList.toggle('card__like-button_active');
-}
-
-function handleCardImageClick(evt) {
+function handleCardClick(evt) {
   const imageNode = evt.target;
   const imageLink = imageNode.src;
   const card = getParentCard(imageNode);
@@ -132,6 +107,11 @@ function handleCardImageClick(evt) {
   setKeyupListener(handlePopupCloseAction);
   openPopup(imagePopup);
   fillImagePopup(cardTitle, imageLink);
+}
+
+function buildCard(cardData) {
+  const card = new Card(cardData, '#card', handleCardClick);
+  return card.generateCard();
 }
 
 function addNewCardFromInput() {
@@ -162,7 +142,6 @@ function doCleanUpAndClosePopup(popupElement) {
   if (hasForm(popupElement)) {
     const formElement = getPopupForm(popupElement);
     clearFormInputs(formElement);
-    resetFormValidityState(formElement);
   }
 }
 
@@ -207,19 +186,8 @@ function handlePopupSaveButtonClick(evt) {
   }
 }
 
-function handleCardClicks(evt) {
-  if (evt.target.classList.contains('card__image')) {
-    handleCardImageClick(evt);
-  } else if (evt.target.classList.contains('card__like-button')) {
-    handleLikeButtonClick(evt);
-  } else if (evt.target.classList.contains('card__remove-button')) {
-    removeCard(evt);
-  }
-}
-
 
 /* Add event listeners  and call functions */
-
 editProfilePopup.addEventListener('click', handlePopupCloseAction);
 popupEditPorfileForm.addEventListener('submit', handlePopupSaveButtonClick);
 profileInfoEditButton.addEventListener('click', handlePopupOpenButtonClick);
@@ -227,8 +195,6 @@ profileInfoEditButton.addEventListener('click', handlePopupOpenButtonClick);
 addNewCardPopup.addEventListener('click', handlePopupCloseAction);
 addCardForm.addEventListener('submit', handlePopupSaveButtonClick);
 addCardButton.addEventListener('click', handlePopupOpenButtonClick);
-
-cardsListNode.addEventListener('click', handleCardClicks);
 
 imagePopup.addEventListener('click', handlePopupCloseAction);
 
