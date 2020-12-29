@@ -9,13 +9,6 @@ export default class FormValidator {
     this._setEventListeners(this._formElement);
   }
 
-  resetFormValidityState() {
-    const inputList = this._formElement.querySelectorAll(this._config.inputSelector);
-    const buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
-    inputList.forEach(inputElement => this._hideInputError(inputElement))
-    this._toggleButtonState(buttonElement);
-  }
-
   notifyFormsAboutInputChange() {
     const inputElementList = this._formElement.querySelectorAll(this._config.inputSelector);
     const inputEvent = new Event('input');
@@ -35,6 +28,16 @@ export default class FormValidator {
         this._validateInput(inputElement);
         this._toggleButtonState(buttonElement);
       });
+    });
+
+    formElement.addEventListener('reset', () => {
+      const inputList = this._formElement.querySelectorAll(this._config.inputSelector);
+      const buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
+      inputList.forEach(inputElement => {
+        inputElement.value = '';
+        this._hideInputError(inputElement)
+      });
+      this._toggleButtonState(buttonElement);
     });
   }
 
@@ -62,7 +65,7 @@ export default class FormValidator {
 
   _showInputError(inputElement, errorMessage) {
     inputElement.classList.add(this._config.inputErrorClass);
-    const errorElement = this._formElement.querySelector(his._config.errorInputElementNamePrefix + inputElement.name);
+    const errorElement = this._formElement.querySelector(this._config.errorInputElementNamePrefix + inputElement.name);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._config.errorClass);
   }

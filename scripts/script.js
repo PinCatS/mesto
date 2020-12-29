@@ -166,7 +166,6 @@ function handlePopupOpenButtonClick(evt) {
       break;
     case 'profile-add-button':
       openPopup(addNewCardPopup);
-      addCardFormValidator.resetFormValidityState();
   }
 }
 

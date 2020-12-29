@@ -4,7 +4,7 @@ export default class Card {
     this._title = data.name;
     this._link = data.link;
     this._cardTemplateSelector = cardTemplateSelector;
-    this.__handleCardClick = cardClickHandler;
+    this._handleCardClick = cardClickHandler;
   }
 
   _getTemplate() {
