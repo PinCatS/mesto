@@ -98,23 +98,7 @@ function removeKeyupListener(handler) {
   document.removeEventListener('keyup', handler);
 }
 
-function removeCard(evt) {
-  const trashButtonNode = evt.target;
-  const card = getParentCard(trashButtonNode);
-  card.remove();
-}
-
-function buildCard(cardData) {
-  const card = new Card(cardData, '#card');
-  return card.generateCard();
-}
-
-function handleLikeButtonClick(evt) {
-  const likeButton = evt.target;
-  likeButton.classList.toggle('card__like-button_active');
-}
-
-function handleCardImageClick(evt) {
+function handleCardClick(evt) {
   const imageNode = evt.target;
   const imageLink = imageNode.src;
   const card = getParentCard(imageNode);
@@ -123,6 +107,11 @@ function handleCardImageClick(evt) {
   setKeyupListener(handlePopupCloseAction);
   openPopup(imagePopup);
   fillImagePopup(cardTitle, imageLink);
+}
+
+function buildCard(cardData) {
+  const card = new Card(cardData, '#card', handleCardClick);
+  return card.generateCard();
 }
 
 function addNewCardFromInput() {
@@ -198,16 +187,6 @@ function handlePopupSaveButtonClick(evt) {
   }
 }
 
-function handleCardClicks(evt) {
-  if (evt.target.classList.contains('card__image')) {
-    handleCardImageClick(evt);
-  } else if (evt.target.classList.contains('card__like-button')) {
-    handleLikeButtonClick(evt);
-  } else if (evt.target.classList.contains('card__remove-button')) {
-    removeCard(evt);
-  }
-}
-
 
 /* Add event listeners  and call functions */
 
@@ -218,8 +197,6 @@ profileInfoEditButton.addEventListener('click', handlePopupOpenButtonClick);
 addNewCardPopup.addEventListener('click', handlePopupCloseAction);
 addCardForm.addEventListener('submit', handlePopupSaveButtonClick);
 addCardButton.addEventListener('click', handlePopupOpenButtonClick);
-
-cardsListNode.addEventListener('click', handleCardClicks);
 
 imagePopup.addEventListener('click', handlePopupCloseAction);
 
