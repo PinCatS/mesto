@@ -189,7 +189,6 @@ function handlePopupSaveButtonClick(evt) {
 
 
 /* Add event listeners  and call functions */
-
 editProfilePopup.addEventListener('click', handlePopupCloseAction);
 popupEditPorfileForm.addEventListener('submit', handlePopupSaveButtonClick);
 profileInfoEditButton.addEventListener('click', handlePopupOpenButtonClick);
