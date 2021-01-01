@@ -20,16 +20,16 @@ export default class Card {
       this._handleLikeButtonClick();
     });
 
-    const removeButtonElement = this._cardElement.querySelector('.card__remove-button').addEventListener('click', () => {
+    this._cardElement.querySelector('.card__remove-button').addEventListener('click', () => {
       this._handleRemoveButtonClick();
     });
 
-    const cardImageElement = this._cardElement.querySelector('.card__image').addEventListener('click', evt => {
+    this._cardElement.querySelector('.card__image').addEventListener('click', evt => {
       this._handleCardClick(evt);
     });
   }
 
-  _handleLikeButtonClick(likeButtonElement) {
+  _handleLikeButtonClick() {
     this._cardElement.querySelector('.card__like-button').classList.toggle('card__like-button_active');
   }
 
