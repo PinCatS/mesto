@@ -22,9 +22,9 @@ The project of Web developer program at Yandex.Praktikum where we master our jav
 
 * Easy way:
   * You can open it by going to the project's github.io page [Mesto](https://pincats.github.io/mesto/)
-  * Download or clone the repo and open index.html in the ./dist folder
+  * Download or clone the repo and open *index.html* in the *./dist* folder
 
 * Advanced way:
   1. Download or clone the project
-  2. Use npm i to install the dependencies
-  3. Issue npm run dev and play with it
+  2. Use `npm i` to install the dependencies
+  3. Issue `npm run dev` and play with it
