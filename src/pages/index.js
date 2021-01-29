@@ -1,4 +1,4 @@
-import '../index.css';
+import './index.css';
 import {
   initialCards,
   formConfig,
@@ -12,6 +12,7 @@ import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 
+
 /* Enables forms validation */
 const editProfileFormValidator = new FormValidator(document.forms['profile-edit-form'], formConfig);
 const addCardFormValidator = new FormValidator(document.forms['add-card-form'], formConfig);
@@ -19,7 +20,7 @@ const addCardFormValidator = new FormValidator(document.forms['add-card-form'], 
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
-/* Handlers */
+
 function handleCardClick(evt) {
   const imageElement = evt.target;
   const cardTitle = imageElement.closest('.card')
@@ -35,7 +36,7 @@ function handleCardClick(evt) {
   imagePopup.open();
 }
 
-/* Render initial cards list */
+/* Used to render cards */
 const cardList = new Section({
     items: initialCards,
     renderer: item => {
@@ -44,9 +45,10 @@ const cardList = new Section({
     }
 }, '.places > .cards');
 
-/* Create popups */
+
 const userInfo = new UserInfo('.profile__name', '.profile__activity');
 
+/* Create profile edit popup and set listeners */
 const profileEditPopup = new PopupWithForm({
   containerSelector: '.popup_name_edit-profile',
   handleFormSubmit: ({ ['profile-name']: name, ['profile-activity']: about }) => {
@@ -55,6 +57,7 @@ const profileEditPopup = new PopupWithForm({
 });
 profileEditPopup.setEventListeners();
 
+/* Create add-new-card popup and set listeners */
 const addNewCardPopup = new PopupWithForm({
   containerSelector: '.popup_name_add-card',
   handleFormSubmit: ({ ['place-name']: name, ['place-image-url']: link }) => {
@@ -65,9 +68,12 @@ const addNewCardPopup = new PopupWithForm({
 addNewCardPopup.setEventListeners();
 
 
+/* Render initial cards */
 cardList.renderElements();
 
+/* Add event listeners to profile-edit and add-new-card buttons */
 profileInfoEditButton.addEventListener('click', () => {
+  /* Fill inputs with values from the page and notify validator */
   const {name, about} = userInfo.getUserInfo();
   profileEditPopup.setInputValues({
     'profile-name': name,
