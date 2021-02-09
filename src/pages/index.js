@@ -1,6 +1,5 @@
 import './index.css';
 import {
-  initialCards,
   formConfig,
   profileInfoEditButton,
   addCardButton,
@@ -45,6 +44,16 @@ function buildCard(item, cardTemplateSelector, cardClickHandler) {
   return card.generateCard();
 }
 
+/* Retrieve user profile info */
+const userInfo = new UserInfo('.profile__name', '.profile__activity');
+api.getUserInfo()
+        .then(res => {
+          userInfo.setUserInfo(res.name, res.about);
+        })
+        .catch(err => {
+          console.error(err.status, err.statusText);
+        });
+
 /* Used to render cards */
 const cardList = new Section({
     items: [],
@@ -58,19 +67,21 @@ function addCardToPage(cardElement) {
 api.getInitialCards()
         .then(cards => {
           cards.forEach(card => {
-            const cardElement = buildCard(card, '#card', handleCardClick)
+            const cardElement = buildCard(card, '#card', handleCardClick);
             addCardToPage(cardElement);
           });
         })
-        .catch(err => console.log(err.status, err.statusText));
-
-const userInfo = new UserInfo('.profile__name', '.profile__activity');
+        .catch(err => console.error(err.status, err.statusText));
 
 /* Create profile edit popup and set listeners */
 const profileEditPopup = new PopupWithForm({
   containerSelector: '.popup_name_edit-profile',
   handleFormSubmit: ({ ['profile-name']: name, ['profile-activity']: about }) => {
-    userInfo.setUserInfo(name, about);
+    api.setProfile(name, about)
+            .then(res => {
+              userInfo.setUserInfo(res.name, res.about);
+            })
+            .catch(err => console.error(err.status, err.statusText));
   }
 });
 profileEditPopup.setEventListeners();
@@ -79,8 +90,12 @@ profileEditPopup.setEventListeners();
 const addNewCardPopup = new PopupWithForm({
   containerSelector: '.popup_name_add-card',
   handleFormSubmit: ({ ['place-name']: name, ['place-image-url']: link }) => {
-    const cardElement = buildCard({name, link}, '#card', handleCardClick);
-    addCardToPage(cardElement);
+    api.addCard(name, link)
+            .then(res => {
+              const cardElement = buildCard({name: res.name, link: res.link}, '#card', handleCardClick);
+              addCardToPage(cardElement);
+            })
+            .catch(err => console.error(err.status, err.statusText));
   }
 });
 addNewCardPopup.setEventListeners();
