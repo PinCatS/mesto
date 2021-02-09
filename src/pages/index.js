@@ -3,15 +3,23 @@ import {
   initialCards,
   formConfig,
   profileInfoEditButton,
-  addCardButton
-} from '../utils/constants.js';
-import FormValidator from '../components/FormValidator.js';
+  addCardButton,
+  apiBaseUrl,
+  apiToken
+} from '../utils/constants';
+import Api from '../components/Api'
+import FormValidator from '../components/FormValidator';
 import Section from '../components/Section';
-import Card from '../components/Card.js';
+import Card from '../components/Card';
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 
+/* Create API */
+const api = new Api({
+  baseUrl: apiBaseUrl,
+  token: apiToken,
+});
 
 /* Enables forms validation */
 const editProfileFormValidator = new FormValidator(document.forms['profile-edit-form'], formConfig);
@@ -39,13 +47,22 @@ function buildCard(item, cardTemplateSelector, cardClickHandler) {
 
 /* Used to render cards */
 const cardList = new Section({
-    items: initialCards,
+    items: [],
     renderer: item => buildCard(item, '#card', handleCardClick)
 }, '.places > .cards');
 
 function addCardToPage(cardElement) {
   cardList.addItem(cardElement);
 }
+
+api.getInitialCards()
+        .then(cards => {
+          cards.forEach(card => {
+            const cardElement = buildCard(card, '#card', handleCardClick)
+            addCardToPage(cardElement);
+          });
+        })
+        .catch(err => console.log(err.status, err.statusText));
 
 const userInfo = new UserInfo('.profile__name', '.profile__activity');
 
