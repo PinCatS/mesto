@@ -62,9 +62,9 @@ function handleCardLike(like) {
     .catch(err => console.error(err.status, err.statusText));
 }
 
-function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, isLiked = false) {
+function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, isLiked = false, hasRemoveButton = true) {
   const card = new Card(item, cardTemplateSelector, cardClickHandler, cardLikeHandler);
-  return card.generateCard(isLiked);
+  return card.generateCard(isLiked, hasRemoveButton);
 }
 
 /* Used to render cards */
@@ -77,10 +77,14 @@ function addCardToPage(cardElement) {
   cardList.addItem(cardElement);
 }
 
-function isUserLikedCard(card, userId) {
+function didLike(card, userId) {
   return card.likes.some(user => {
     return user._id == userId;
   });
+}
+
+function isOwner(card, userId) {
+  return card.owner._id == userId;
 }
 
 api.getInitialCards()
@@ -89,7 +93,11 @@ api.getInitialCards()
             const userId = user._id;
             cards.forEach(card => {
               let cardElement = null;
-              cardElement = buildCard(card, '#card', handleCardClick, handleCardLike, isUserLikedCard(card, user._id));
+              cardElement = buildCard(card, '#card',
+                  handleCardClick,
+                  handleCardLike,
+                  didLike(card, user._id),
+                  isOwner(card, user._id));
               addCardToPage(cardElement);
             });
           })

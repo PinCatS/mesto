@@ -23,10 +23,6 @@ export default class Card {
       this._handleLikeButtonClick();
     });
 
-    this._cardElement.querySelector('.card__remove-button').addEventListener('click', () => {
-      this._handleRemoveButtonClick();
-    });
-
     this._cardImageElement.addEventListener('click', evt => {
       this._handleCardClick(evt);
     });
@@ -46,10 +42,20 @@ export default class Card {
     this._cardElement = null;
   }
 
-  generateCard(setLike = false) {
+  generateCard(isLikeSet = false, hasRemoveButton = true) {
     this._cardElement = this._getTemplate();
     this._likeButtonElement = this._cardElement.querySelector('.card__like-button');
-    if (setLike) this._likeButtonElement.classList.add('card__like-button_active');
+    if (isLikeSet) this._likeButtonElement.classList.add('card__like-button_active');
+
+    this._removeButtonElement = this._cardElement.querySelector('.card__remove-button');
+    if (hasRemoveButton) {
+      this._removeButtonElement.addEventListener('click', () => {
+        this._handleRemoveButtonClick();
+      });
+    } else {
+      this._removeButtonElement.classList.remove('card__remove-button_visible');
+      this._removeButtonElement.disabled = true;
+    }
 
     this._cardImageElement = this._cardElement.querySelector('.card__image');
     this._likeCounterElement = this._cardElement.querySelector('.card__like-counter');
