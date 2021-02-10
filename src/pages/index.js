@@ -27,6 +27,16 @@ const addCardFormValidator = new FormValidator(document.forms['add-card-form'], 
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
+/* Retrieve user profile info */
+const userInfo = new UserInfo('.profile__name', '.profile__activity');
+api.getUserInfo()
+        .then(res => {
+          userInfo.setUserInfo(res.name, res.about);
+        })
+        .catch(err => {
+          console.error(err.status, err.statusText);
+        });
+
 const imagePopup = new PopupWithImage('.image-popup');
 imagePopup.setEventListeners();
 
@@ -39,37 +49,51 @@ function handleCardClick(evt) {
   imagePopup.open(cardTitle, imageElement.src);
 }
 
-function buildCard(item, cardTemplateSelector, cardClickHandler) {
-  const card = new Card(item, cardTemplateSelector, cardClickHandler);
-  return card.generateCard();
+function handleCardLike(like) {
+  let liked = null;
+  if (like.isActive) {
+    liked = api.removeLike(like.id);
+  } else {
+    liked = api.setLike(like.id);
+  }
+
+  liked
+    .then(card => like.likeCounterElement.textContent = card.likes.length)
+    .catch(err => console.error(err.status, err.statusText));
 }
 
-/* Retrieve user profile info */
-const userInfo = new UserInfo('.profile__name', '.profile__activity');
-api.getUserInfo()
-        .then(res => {
-          userInfo.setUserInfo(res.name, res.about);
-        })
-        .catch(err => {
-          console.error(err.status, err.statusText);
-        });
+function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, isLiked = false) {
+  const card = new Card(item, cardTemplateSelector, cardClickHandler, cardLikeHandler);
+  return card.generateCard(isLiked);
+}
 
 /* Used to render cards */
 const cardList = new Section({
     items: [],
-    renderer: item => buildCard(item, '#card', handleCardClick)
+    renderer: item => buildCard(item, '#card', handleCardClick, handleCardLike)
 }, '.places > .cards');
 
 function addCardToPage(cardElement) {
   cardList.addItem(cardElement);
 }
 
+function isUserLikedCard(card, userId) {
+  return card.likes.some(user => {
+    return user._id == userId;
+  });
+}
+
 api.getInitialCards()
         .then(cards => {
-          cards.forEach(card => {
-            const cardElement = buildCard(card, '#card', handleCardClick);
-            addCardToPage(cardElement);
-          });
+          api.getUserInfo().then(user => {
+            const userId = user._id;
+            cards.forEach(card => {
+              let cardElement = null;
+              cardElement = buildCard(card, '#card', handleCardClick, handleCardLike, isUserLikedCard(card, user._id));
+              addCardToPage(cardElement);
+            });
+          })
+          .catch(err => console.error(err.status, err.statusText));
         })
         .catch(err => console.error(err.status, err.statusText));
 
@@ -92,7 +116,7 @@ const addNewCardPopup = new PopupWithForm({
   handleFormSubmit: ({ ['place-name']: name, ['place-image-url']: link }) => {
     api.addCard(name, link)
             .then(res => {
-              const cardElement = buildCard({name: res.name, link: res.link}, '#card', handleCardClick);
+              const cardElement = buildCard({name: res.name, link: res.link}, '#card', handleCardClick, handleCardLike);
               addCardToPage(cardElement);
             })
             .catch(err => console.error(err.status, err.statusText));

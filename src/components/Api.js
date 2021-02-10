@@ -83,4 +83,44 @@ export default class Api {
       });
     });
   }
+
+  setLike(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: {
+        authorization: this.token,
+        'content-type': 'application/json'
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      };
+
+      return Promise.reject({
+        status: res.status,
+        statusText: res.statusText
+      });
+    });
+  }
+
+  removeLike(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this.token,
+        'content-type': 'application/json'
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      };
+
+      return Promise.reject({
+        status: res.status,
+        statusText: res.statusText
+      });
+    });
+  }
 }
