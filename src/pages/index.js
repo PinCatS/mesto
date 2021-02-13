@@ -12,6 +12,7 @@ import Section from '../components/Section';
 import Card from '../components/Card';
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
+import PopupConfirm from '../components/PopupConfirm';
 import UserInfo from '../components/UserInfo';
 
 /* Create API */
@@ -62,9 +63,25 @@ function handleCardLike(like) {
     .catch(err => console.error(err.status, err.statusText));
 }
 
-function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, isLiked = false, hasRemoveButton = true) {
-  const card = new Card(item, cardTemplateSelector, cardClickHandler, cardLikeHandler);
-  return card.generateCard(isLiked, hasRemoveButton);
+const removeCardPopup = new PopupConfirm({
+  containerSelector: '.popup_name_remove-card',
+  handleFormSubmit: ({ cardId, remove }) => {
+    api.deleteCard(cardId)
+            .then(data => remove())
+            .catch((err) => {
+              err => console.error(err.status, err.statusText);
+            });
+  }
+});
+removeCardPopup.setEventListeners();
+
+function handleCardDelete(cardId, removeCardElementHandler) {
+  removeCardPopup.open({ cardId, remove: removeCardElementHandler });
+}
+
+function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, cardDeleteHandler = null, isLiked = false) {
+  const card = new Card(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, cardDeleteHandler);
+  return card.generateCard(isLiked);
 }
 
 /* Used to render cards */
@@ -96,8 +113,8 @@ api.getInitialCards()
               cardElement = buildCard(card, '#card',
                   handleCardClick,
                   handleCardLike,
-                  didLike(card, user._id),
-                  isOwner(card, user._id));
+                  isOwner(card, user._id) ? handleCardDelete : null,
+                  didLike(card, user._id));
               addCardToPage(cardElement);
             });
           })
@@ -123,8 +140,8 @@ const addNewCardPopup = new PopupWithForm({
   containerSelector: '.popup_name_add-card',
   handleFormSubmit: ({ ['place-name']: name, ['place-image-url']: link }) => {
     api.addCard(name, link)
-            .then(res => {
-              const cardElement = buildCard({name: res.name, link: res.link}, '#card', handleCardClick, handleCardLike);
+            .then(card => {
+              const cardElement = buildCard(card, '#card', handleCardClick, handleCardLike, handleCardDelete);
               addCardToPage(cardElement);
             })
             .catch(err => console.error(err.status, err.statusText));
@@ -132,9 +149,8 @@ const addNewCardPopup = new PopupWithForm({
 });
 addNewCardPopup.setEventListeners();
 
-
 /* Render initial cards */
-cardList.renderElements();
+// cardList.renderElements(); Can I use that with api ?
 
 /* Add event listeners to profile-edit and add-new-card buttons */
 profileInfoEditButton.addEventListener('click', () => {

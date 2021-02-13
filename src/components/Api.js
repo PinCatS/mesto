@@ -1,5 +1,3 @@
-import { addCardButton } from "../utils/constants";
-
 export default class Api {
   constructor({ baseUrl, token }) {
     this.baseUrl = baseUrl;
@@ -42,6 +40,25 @@ export default class Api {
     })
   }
 
+  updateAvatar(link) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this.token,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({avatar: link})
+    })
+    .then(res => {
+      if (res.ok) return Promise.resolve();
+
+      return Promise.reject({
+        status: res.status,
+        statusText: res.statusText
+      });
+    });
+  }
+
   setProfile(name, about) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
@@ -74,8 +91,26 @@ export default class Api {
     })
     .then(res => {
       if (res.ok) {
-        return res.json()
+        return res.json();
       };
+
+      return Promise.reject({
+        status: res.status,
+        statusText: res.statusText
+      });
+    });
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this.token,
+        'content-type': 'application/json'
+      }
+    })
+    .then(res => {
+      if (res.ok) return Promise.resolve();
 
       return Promise.reject({
         status: res.status,
