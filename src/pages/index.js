@@ -3,6 +3,7 @@ import {
   formConfig,
   profileInfoEditButton,
   addCardButton,
+  updateAvatarButton,
   apiBaseUrl,
   apiToken
 } from '../utils/constants';
@@ -28,6 +29,10 @@ const updateAvatarFormValidator = new FormValidator(document.forms['profile-upda
 
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+updateAvatarFormValidator.enableValidation();
+
+const userInfo = new UserInfo('.profile__name', '.profile__activity', '.profile__avatar');
+
 
 function onRequestError(apiErr, msg) {
   const apiErrorMsg = apiErr
@@ -86,6 +91,17 @@ const addNewCardPopup = new PopupWithForm({
 });
 addNewCardPopup.setEventListeners();
 
+const avatarUpdatePopup = new PopupWithForm({
+  containerSelector: '.popup_name_update-avatar',
+  handleFormSubmit: ({ ['avatar-link']: link }) => {
+    api
+      .updateAvatar(link)
+      .then(res => userInfo.setAvatar(res.avatar))
+      .catch(err => onRequestError(err, 'Failed to update avatar.'));
+  }
+});
+avatarUpdatePopup.setEventListeners();
+
 
 function handleCardClick(evt) {
   const imageElement = evt.target;
@@ -119,14 +135,14 @@ function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler
   return card.generateCard(isLiked);
 }
 
-
-/* Retrieve user profile info and set to page */
-const userInfo = new UserInfo('.profile__name', '.profile__activity');
+/* Retrieve user info from the server */
 api
   .getUserInfo()
-  .then(res => userInfo.setUserInfo(res.name, res.about))
+  .then(res => {
+    userInfo.setUserInfo(res.name, res.about)
+    userInfo.setAvatar(res.avatar)
+  })
   .catch(err => onRequestError(err, 'Failed to get user info.'));
-
 
 /* Render initial cards */
 api
@@ -168,3 +184,7 @@ profileInfoEditButton.addEventListener('click', () => {
 addCardButton.addEventListener('click', () => {
   addNewCardPopup.open();
 });
+
+updateAvatarButton.addEventListener('click', () => {
+  avatarUpdatePopup.open();
+})

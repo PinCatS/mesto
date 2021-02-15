@@ -13,7 +13,7 @@
     <main class="content page__content">
       <section class="profile">
         <div class="profile__info">
-          <div class="profile__avatar-container">
+          <div class="profile__avatar-button">
             <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля">
           </div>
           <div class="profile__info-text">
@@ -94,11 +94,10 @@
         <h2 class="popup__heading">Обновить аватар</h2>
         <fieldset class="popup__info">
           <input
-            type="text"
+            type="url"
             class="form-input popup__input popup__input_name_avatar-link"
             name="avatar-link"
             placeholder="https://somewebsite.com/someimage.jpg"
-            minlength="2" maxlength="30"
             required>
           <span class="popup__input-error popup__input-error_name_avatar-link"></span>
           <button type="submit" class="button popup__save-button">Сохранить</button>
