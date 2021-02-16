@@ -34,6 +34,40 @@ updateAvatarFormValidator.enableValidation();
 const userInfo = new UserInfo('.profile__name', '.profile__activity', '.profile__avatar');
 
 
+function handleCardClick(evt) {
+  const imageElement = evt.target;
+  const cardTitle = imageElement.closest('.card')
+          .querySelector('.card__title')
+          .textContent;
+
+  imagePopup.open(cardTitle, imageElement.src);
+}
+
+function handleCardLike(like) {
+  let liked = null;
+  if (like.isActive) {
+    liked = api.removeLike(like.id);
+  } else {
+    liked = api.setLike(like.id);
+  }
+
+  liked
+    .then(card => like.likeCounterElement.textContent = card.likes.length)
+    .catch(err => onRequestError(err, 'Failed to like card.'));
+}
+
+function handleCardDelete(cardId, removeCardElementHandler) {
+  removeCardPopup.open({ cardId, remove: removeCardElementHandler });
+}
+
+
+function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, cardDeleteHandler = null, isLiked = false) {
+  const card = new Card(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, cardDeleteHandler);
+  return card.generateCard(isLiked);
+}
+
+const cardList = new Section('.places > .cards', {});
+
 function onRequestError(apiErr, msg) {
   const apiErrorMsg = apiErr
           ? `${apiErr.status} ${apiErr.statusText}`
@@ -72,7 +106,8 @@ const profileEditPopup = new PopupWithForm({
     api
       .setProfile(name, about)
       .then(res => userInfo.setUserInfo(res.name, res.about))
-      .catch(err => onRequestError(err, 'Failed to edit profile.'));
+      .catch(err => onRequestError(err, 'Failed to edit profile.'))
+      .finally(() => profileEditPopup.close());
   }
 });
 profileEditPopup.setEventListeners();
@@ -86,7 +121,8 @@ const addNewCardPopup = new PopupWithForm({
         const cardElement = buildCard(card, '#card', handleCardClick, handleCardLike, handleCardDelete);
         cardList.addItem(cardElement);
       })
-      .catch(err => onRequestError(err, 'Failed to add new card.'));
+      .catch(err => onRequestError(err, 'Failed to add new card.'))
+      .finally(() => addNewCardPopup.close());
   }
 });
 addNewCardPopup.setEventListeners();
@@ -97,43 +133,11 @@ const avatarUpdatePopup = new PopupWithForm({
     api
       .updateAvatar(link)
       .then(res => userInfo.setAvatar(res.avatar))
-      .catch(err => onRequestError(err, 'Failed to update avatar.'));
+      .catch(err => onRequestError(err, 'Failed to update avatar.'))
+      .finally(() => avatarUpdatePopup.close());
   }
 });
 avatarUpdatePopup.setEventListeners();
-
-
-function handleCardClick(evt) {
-  const imageElement = evt.target;
-  const cardTitle = imageElement.closest('.card')
-          .querySelector('.card__title')
-          .textContent;
-
-  imagePopup.open(cardTitle, imageElement.src);
-}
-
-function handleCardLike(like) {
-  let liked = null;
-  if (like.isActive) {
-    liked = api.removeLike(like.id);
-  } else {
-    liked = api.setLike(like.id);
-  }
-
-  liked
-    .then(card => like.likeCounterElement.textContent = card.likes.length)
-    .catch(err => onRequestError(err, 'Failed to like card.'));
-}
-
-function handleCardDelete(cardId, removeCardElementHandler) {
-  removeCardPopup.open({ cardId, remove: removeCardElementHandler });
-}
-
-
-function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, cardDeleteHandler = null, isLiked = false) {
-  const card = new Card(item, cardTemplateSelector, cardClickHandler, cardLikeHandler, cardDeleteHandler);
-  return card.generateCard(isLiked);
-}
 
 /* Retrieve user info from the server */
 api
@@ -152,16 +156,14 @@ api
     api
       .getUserInfo()
       .then(user => {
-        const cardList = new Section({
-          items: cards,
-          renderer: item => buildCard(item, '#card',
-                  handleCardClick,
-                  handleCardLike,
-                  isOwner(item, user._id) ? handleCardDelete : null,
-                  didLike(item, user._id))
-        }, '.places > .cards');
-
-        cardList.renderElements();
+        cardList
+                .setItemList(cards)
+                .setRenderer(item => buildCard(item, '#card',
+                        handleCardClick,
+                        handleCardLike,
+                        isOwner(item, user._id) ? handleCardDelete : null,
+                        didLike(item, user._id)))
+                .renderElements();
       })
       .catch(err => onRequestError(err, 'Failed to get user info.'));
   })
