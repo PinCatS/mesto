@@ -2,6 +2,9 @@ export default class FormValidator {
   constructor(formElement, config) {
     this._formElement = formElement;
     this._config = config;
+
+    this._inputElementList = this._formElement.querySelectorAll(this._config.inputSelector);
+    this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
   }
 
   /* Public API */
@@ -10,34 +13,28 @@ export default class FormValidator {
   }
 
   notifyFormsAboutInputChange() {
-    const inputElementList = this._formElement.querySelectorAll(this._config.inputSelector);
     const inputEvent = new Event('input');
-    inputElementList.forEach(input => input.dispatchEvent(inputEvent));
+    this._inputElementList.forEach(input => input.dispatchEvent(inputEvent));
   }
 
 
   /* Private methods */
   _setEventListeners(formElement) {
-    const inputList = this._formElement.querySelectorAll(this._config.inputSelector);
-    const buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
+    this._toggleButtonState(this._buttonElement);
 
-    this._toggleButtonState(buttonElement);
-
-    inputList.forEach(inputElement => {
+    this._inputElementList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._validateInput(inputElement);
-        this._toggleButtonState(buttonElement);
+        this._toggleButtonState(this._buttonElement);
       });
     });
 
     formElement.addEventListener('reset', () => {
-      const inputList = this._formElement.querySelectorAll(this._config.inputSelector);
-      const buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
-      inputList.forEach(inputElement => {
+      this._inputElementList.forEach(inputElement => {
         inputElement.value = '';
         this._hideInputError(inputElement)
       });
-      this._toggleButtonState(buttonElement);
+      this._toggleButtonState(this._buttonElement);
     });
   }
 

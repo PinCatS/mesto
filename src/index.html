@@ -13,10 +13,12 @@
     <main class="content page__content">
       <section class="profile">
         <div class="profile__info">
-          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля">
+          <div class="profile__avatar-button">
+            <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар профиля">
+          </div>
           <div class="profile__info-text">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <p class="profile__activity">Исследователь океана</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__activity"></p>
             <button type="button" aria-label="Редактировать профиль" name="profile-edit-button" class="button profile__edit-button"></button>
           </div>
         </div>
@@ -86,6 +88,23 @@
       </form>
     </div>
 
+    <div class="popup popup_name_update-avatar">
+      <form class="popup__container popup__form" name="profile-update-avatar-form" novalidate>
+        <button type="button" aria-label="Закрыть форму" class="button popup__close-button"></button>
+        <h2 class="popup__heading">Обновить аватар</h2>
+        <fieldset class="popup__info">
+          <input
+            type="url"
+            class="form-input popup__input popup__input_name_avatar-link"
+            name="avatar-link"
+            placeholder="https://somewebsite.com/someimage.jpg"
+            required>
+          <span class="popup__input-error popup__input-error_name_avatar-link"></span>
+          <button type="submit" class="button popup__save-button">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+
     <div class="popup image-popup">
       <figure class="popup__container popup__container_size_small image-popup__container">
         <button type="button" aria-label="Закрыть картинку" class="button popup__close-button popup__close-button_location_topright"></button>
@@ -94,15 +113,28 @@
       </figure>
     </div>
 
+    <div class="popup popup_name_remove-card">
+      <form class="popup__container popup__form" name="remove-card-form" novalidate>
+        <button type="button" aria-label="Закрыть форму" class="button popup__close-button popup__close-button_location_topright"></button>
+        <h2 class="popup__heading">Вы уверены?</h2>
+        <fieldset class="popup__info popup__info_size_small popup__info_margin-top_small">
+          <button type="submit" class="button popup__save-button">Да</button>
+        </fieldset>
+      </form>
+    </div>
+
     <!-- Templates -->
 
     <template id="card">
       <li class="card">
-        <button type="button" aria-label="Удалить карточку" class="button card__remove-button"></button>
+        <button type="button" aria-label="Удалить карточку" class="button card__remove-button card__remove-button_visible"></button>
         <img class="card__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="Камчатка">
         <div class="card__info">
           <h2 class="card__title"></h2>
-          <button type="button" aria-label="Нравится" class="button card__like-button"></button>
+          <div class="card__like">
+            <button type="button" aria-label="Нравится" class="button card__like-button"></button>
+            <p class="card__like-counter">0</p>
+          </div>
         </div>
       </li>
     </template>

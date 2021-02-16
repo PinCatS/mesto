@@ -2,7 +2,8 @@
 
 ## Project description
 
-One of the project of Web developer program at Yandex.Praktikum where we master our javas script skills like adding new card to the page, like them, remove, validate forms.
+The project of Web developer program at Yandex.Praktikum where we master our javas script skills like adding new card to the page, like them, remove, validate forms.
+
 
 ## Technologies I used
 
@@ -11,11 +12,20 @@ One of the project of Web developer program at Yandex.Praktikum where we master 
 * Transitions
 * Media queries
 * BEM methodology
-* Java Script
+* JS ES6 (modules, classes, promises)
+* Webpack
+* HTTP requests using fetch
 
 * Figma and Git
 
+
 ## How to view the web page
 
-1. You can open it by going to the project's github.io page [Mesto](https://pincats.github.io/mesto/)
-2. You can download or clone the project and open index.html in any browser locally
+* Easy way:
+  * You can open it by going to the project's github.io page [Mesto](https://pincats.github.io/mesto/)
+  * Download or clone the repo and open *index.html* in the *./dist* folder
+
+* Advanced way:
+  1. Download or clone the project
+  2. Use `npm i` to install the dependencies
+  3. Issue `npm run dev` and play with it
