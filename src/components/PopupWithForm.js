@@ -16,11 +16,12 @@ export default class PopupWithForm extends Popup {
   }
 
   _showLoader() {
-    this._submitButton.textContent += '...';
+    this._buttonTextBackup = this._submitButton.textContent;
+    this._submitButton.textContent = 'Сохранение...';
   }
 
   _hideLoader() {
-    this._submitButton.textContent = this._submitButton.textContent.replace('...', '');
+    this._submitButton.textContent = this._buttonTextBackup;
   }
 
   setInputValues(values) {

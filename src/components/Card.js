@@ -36,8 +36,13 @@ export default class Card {
     this._handleCardLike({
       id: this._cardData._id,
       likeCounterElement: this._likeCounterElement,
-      isActive: this._likeButtonElement.classList.contains('card__like-button_active')
+      isActive: this._likeButtonElement.classList.contains('card__like-button_active'),
+      toggle: this._toggleLike.bind(this)
     });
+    this._toggleLike();
+  }
+
+  _toggleLike() {
     this._likeButtonElement.classList.toggle('card__like-button_active');
   }
 

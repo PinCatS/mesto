@@ -31,8 +31,15 @@ editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 updateAvatarFormValidator.enableValidation();
 
+
 const userInfo = new UserInfo('.profile__name', '.profile__activity', '.profile__avatar');
 
+function onRequestError(apiErr, msg) {
+  const apiErrorMsg = apiErr
+          ? `${apiErr.status} ${apiErr.statusText}`
+          : null;
+  console.error(msg, apiErr);
+}
 
 function handleCardClick(evt) {
   const imageElement = evt.target;
@@ -53,7 +60,10 @@ function handleCardLike(like) {
 
   liked
     .then(card => like.likeCounterElement.textContent = card.likes.length)
-    .catch(err => onRequestError(err, 'Failed to like card.'));
+    .catch(err => {
+      onRequestError(err, 'Failed to like card.');
+      like.toggle();
+    });
 }
 
 function handleCardDelete(cardId, removeCardElementHandler) {
@@ -67,23 +77,6 @@ function buildCard(item, cardTemplateSelector, cardClickHandler, cardLikeHandler
 }
 
 const cardList = new Section('.places > .cards', {});
-
-function onRequestError(apiErr, msg) {
-  const apiErrorMsg = apiErr
-          ? `${apiErr.status} ${apiErr.statusText}`
-          : null;
-  console.error(msg, apiErr);
-}
-
-function didLike(card, userId) {
-  return card.likes.some(user => {
-    return user._id == userId;
-  });
-}
-
-function isOwner(card, userId) {
-  return card.owner._id == userId;
-}
 
 
 const imagePopup = new PopupWithImage('.image-popup');
@@ -138,6 +131,17 @@ const avatarUpdatePopup = new PopupWithForm({
   }
 });
 avatarUpdatePopup.setEventListeners();
+
+
+function didLike(card, userId) {
+  return card.likes.some(user => {
+    return user._id == userId;
+  });
+}
+
+function isOwner(card, userId) {
+  return card.owner._id == userId;
+}
 
 /* Retrieve user info from the server */
 api
