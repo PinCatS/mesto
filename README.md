@@ -12,8 +12,9 @@ The project of Web developer program at Yandex.Praktikum where we master our jav
 * Transitions
 * Media queries
 * BEM methodology
-* Java Script
+* JS ES6 (modules, classes, promises)
 * Webpack
+* HTTP requests using fetch
 
 * Figma and Git
 
