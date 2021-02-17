@@ -153,13 +153,9 @@ api
   .catch(err => onRequestError(err, 'Failed to get user info.'));
 
 /* Render initial cards */
-api
-  .getCards()
-  .then(cards => {
-
-    api
-      .getUserInfo()
-      .then(user => {
+Promise
+  .all([api.getCards(), api.getUserInfo()])
+  .then(([cards, user]) => {
         cardList
                 .setItemList(cards)
                 .setRenderer(item => buildCard(item, '#card',
@@ -168,11 +164,8 @@ api
                         isOwner(item, user._id) ? handleCardDelete : null,
                         didLike(item, user._id)))
                 .renderElements();
-      })
-      .catch(err => onRequestError(err, 'Failed to get user info.'));
   })
-  .catch(err => onRequestError(err, 'Failed to get cards.'));
-
+  .catch(err => onRequestError(err, 'Failed to get cards and user info.'));
 
 /* Add event listeners to profile-edit and add-new-card buttons */
 profileInfoEditButton.addEventListener('click', () => {
